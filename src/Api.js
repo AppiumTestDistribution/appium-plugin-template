@@ -1,14 +1,18 @@
 import axios from 'axios';
 
-export async function get(options) {
+export async function get(url) {
     const config = {
         method: 'get',
-        url: options.url,
+        url,
         headers: {
             'Content-Type': 'application/json'
         },
     }
+    console.log('====================================');
+    console.log(JSON.stringify(config));
+    console.log('====================================');
     const response = await axios.get(config)
+
     return response.data;
 }
 
@@ -21,7 +25,9 @@ export async function post(options) {
         },
         data: options.data
     }
-
+    console.log('====================================');
+    console.log(JSON.stringify(config));
+    console.log('====================================');
     const response = await axios.post(config)
     return response.data;
 }

@@ -22,17 +22,11 @@ export default class GesturesPlugin extends BasePlugin {
     }
 
     async dragAndDrop(next, driver) {
-        const source = await get({
-            url: `http://${driver.uiautomator2.host}:${driver.uiautomator2.systemPort}/wd/hub
-            /session/${driver.uiautomator2.jwproxy.sessionId}/element/${this.body.sourceId}/rect`,
-        });
+        const source = await get(`http://${driver.uiautomator2.host}:${driver.uiautomator2.systemPort}/wd/hub/session/${driver.uiautomator2.jwproxy.sessionId}/element/${this.body.sourceId}/rect`);
 
-        const destination = await get({
-            url: `http://${driver.uiautomator2.host}:${driver.uiautomator2.systemPort}/wd/hub
-            /session/${driver.uiautomator2.jwproxy.sessionId}/element/${this.body.destinationId}/rect`,
-        });
+        const destination = await get(`http://${driver.uiautomator2.host}:${driver.uiautomator2.systemPort}/wd/hub/session/${driver.uiautomator2.jwproxy.sessionId}/element/${this.body.destinationId}/rect`);
 
-        const [ {x: sourceX, y:SourceY}, {x:destinationX, y:destinationY}] = await Promise.all([
+        const [ {x: sourceX, y:sourceY}, {x:destinationX, y:destinationY}] = await Promise.all([
             _getCenter(source),
             _getCenter(destination)
         ]);
@@ -52,8 +46,7 @@ export default class GesturesPlugin extends BasePlugin {
         }
 
         await post({
-            url: `http://${driver.uiautomator2.host}:${driver.uiautomator2.systemPort}/wd/hub
-            /session/${driver.uiautomator2.jwproxy.sessionId}/actions`,
+            url: `http://${driver.uiautomator2.host}:${driver.uiautomator2.systemPort}/wd/hub/session/${driver.uiautomator2.jwproxy.sessionId}/actions`,
             data: actionsData
         });
 
