@@ -8,11 +8,7 @@ export async function get(url) {
             'Content-Type': 'application/json'
         },
     }
-    console.log('====================================');
-    console.log(JSON.stringify(config));
-    console.log('====================================');
-    const response = await axios.get(config)
-
+    const response = await axios(config)
     return response.data;
 }
 
@@ -28,6 +24,6 @@ export async function post(options) {
     console.log('====================================');
     console.log(JSON.stringify(config));
     console.log('====================================');
-    const response = await axios.post(config)
+    const response = await axios(config)
     return response.data;
 }

@@ -27,8 +27,8 @@ export default class GesturesPlugin extends BasePlugin {
         const destination = await get(`http://${driver.uiautomator2.host}:${driver.uiautomator2.systemPort}/wd/hub/session/${driver.uiautomator2.jwproxy.sessionId}/element/${this.body.destinationId}/rect`);
 
         const [ {x: sourceX, y:sourceY}, {x:destinationX, y:destinationY}] = await Promise.all([
-            _getCenter(source),
-            _getCenter(destination)
+            this._getCenter(source),
+            this._getCenter(destination)
         ]);
 
         const actionsData = {
@@ -52,10 +52,10 @@ export default class GesturesPlugin extends BasePlugin {
 
     }
 
-    _getCenter(value) {
+    _getCenter({value}) {
         return {
             x: value.x + value.width / 2,
-            y: value.y + value.height/2,
+            y: value.y + value.height / 2,
         }
     }
 
