@@ -1,13 +1,16 @@
 {
-  "name": "appium-gesture-demo-plugin",
+  "name": "appium-template-plugin",
   "version": "1.0.0",
   "description": "",
-  "main": "./lib/src/index.js",
+  "main": "./lib/index.js",
   "scripts": {
     "build": "npx tsc",
     "prepublish": "npx tsc",
     "lint": "eslint '**/*.js' --fix",
-    "prettier": "prettier '**/*.js' --write --single-quote"
+    "prettier": "prettier '**/*.js' --write --single-quote",
+    "uninstall": "(appium plugin uninstall element-wait || exit 0)",
+    "install-plugin": "npm run build && appium plugin install --source=local $(pwd)",
+    "reinstall-plugin": "(appium plugin uninstall template-plugin || exit 0) && npm run install-plugin"
   },
   "contributors": [
     {
@@ -20,9 +23,12 @@
     }
   ],
   "license": "ISC",
+  "peerDependencies": {
+    "appium": "^2.0.0-beta.57"
+  },
   "dependencies": {
-    "@appium/base-plugin": "^1.6.4",
-    "axios": "^0.21.1"
+    "@appium/base-plugin": "^2.2.1",
+    "@appium/support": "^3.1.5"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",
@@ -46,8 +52,20 @@
     "typescript": "^4.2.3"
   },
   "appium": {
-    "pluginName": "gestures-demo",
-    "mainClass": "GesturesPlugin"
+    "pluginName": "template-plugin",
+    "mainClass": "TemplatePlugin",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-07/schema",
+      "additionalProperties": false,
+      "description": "Appium configuration schema for the template plugin.",
+      "properties": {
+        "interval": {
+          "type": "number"
+        }
+      },
+      "title": "Appium template plugin",
+      "type": "object"
+    }
   },
   "engines": {
     "node": ">=10",

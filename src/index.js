@@ -1,3 +1,3 @@
-import GesturesPlugin from './plugin';
-export default GesturesPlugin;
-export { GesturesPlugin };
+import TemplatePlugin from './plugin';
+export default TemplatePlugin;
+export { TemplatePlugin };
