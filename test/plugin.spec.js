@@ -30,39 +30,11 @@ const capabilities = {
     let driver;
     beforeEach(async () => {
       driver = await remote({ ...WDIO_PARAMS, capabilities });
-      driver.addCommand(
-        'setFakeSessionData',
-        command('POST', '/session/:sessionId/fake_data', {
-          command: 'setFakeSessionData',
-          parameters: [
-            {
-              name: 'data',
-              type: 'object',
-              description: 'a valid parameter',
-              required: true,
-            },
-          ],
-        })
-      );
-
-      driver.addCommand(
-        'getFakeSessionData',
-        command('GET', '/session/:sessionId/fake_data', {
-          command: 'getFakeSessionData',
-          parameters: [],
-          returns: {
-            type: 'object',
-            name: 'activity',
-            description: 'Name of the current activity',
-          },
-        })
-      );
     });
-
     it('Basic Plugin test', async () => {
-      const res = { fake: 'fakeResponse' };
-      await driver.setFakeSessionData(res);
-      console.log(await driver.getFakeSessionData());
+      await driver.executeScript('fake: setFakeSessionData', [{socket: 'Stairway to Heaven'}]);
+      const sessionData = await driver.executeScript('fake: getFakeSessionData', []);
+      console.log('Session Data', sessionData);
     });
 
     afterEach(async () => {

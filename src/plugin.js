@@ -12,23 +12,27 @@ export default class TemplatePlugin extends BasePlugin {
     });
   }
 
-  static newMethodMap = /** @type {const} */ ({
-    "/session/:sessionId/fake_data": {
-      GET: { command: "getFakeSessionData", neverProxy: true },
-      POST: {
-        command: "setFakeSessionData",
-        payloadParams: { required: ["data"] },
-        neverProxy: true,
-      },
+  static executeMethodMap = /** @type {const} */ ({
+    // this execute method overrides fake-drivers fake: getThing, for testing
+    'fake: getFakeSessionData': {
+      command: 'getFakeSessionData',
     },
-    "/session/:sessionId/fakepluginargs": {
-      GET: { command: "getFakePluginArgs", neverProxy: true },
+
+    // this is a totally new execute method
+    'fake: setFakeSessionData': {
+      command: 'setFakeSessionData',
+      params: {required: ['socket'], optional: []},
     },
   });
 
-  async setFakeSessionData(next, driver, ...args) {
+  async execute(next, driver, script, args) {
+    return await this.executeMethod(next, driver, script, args);
+  }
+
+  async setFakeSessionData(next, driver, socket) {
     await B.delay(1);
-    driver.fakeSessionData = args[0];
+    console.log('Args', `Plugged in to ${socket}`);
+    driver.fakeSessionData = socket;
     return driver.fakeSessionData;
   }
 
