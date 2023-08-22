@@ -1,4 +1,5 @@
-import BasePlugin from '@appium/base-plugin';
+import { BasePlugin } from 'appium/plugin';
+import B from 'bluebird';
 
 export default class TemplatePlugin extends BasePlugin {
   constructor(name, cliArgs) {
@@ -6,8 +7,7 @@ export default class TemplatePlugin extends BasePlugin {
   }
 
   static async updateServer(expressApp, httpServer, cliArgs) {
-    expressApp.all('/cliArgs', (req, res) => {
-      console.log(JSON.stringify(cliArgs))
+    expressApp.all("/cliArgs", (req, res) => {
       res.send(JSON.stringify(cliArgs));
     });
   }

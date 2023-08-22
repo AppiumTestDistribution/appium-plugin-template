@@ -1,4 +1,4 @@
-import { logger } from 'appium/support';
+const logger = require('appium/support').logger;
 
 const log = logger.getLogger('TemplatePlugin');
 
