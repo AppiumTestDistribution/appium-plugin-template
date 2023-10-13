@@ -8,7 +8,7 @@
     "prepublish": "npx tsc",
     "lint": "eslint '**/*.js' --fix",
     "prettier": "prettier '**/*.js' --write --single-quote",
-    "uninstall": "(appium plugin uninstall element-wait || exit 0)",
+    "uninstall": "(appium plugin uninstall template-plugin || exit 0)",
     "install-plugin": "npm run build && appium plugin install --source=local $(pwd)",
     "reinstall-plugin": "(appium plugin uninstall template-plugin || exit 0) && npm run install-plugin"
   },
